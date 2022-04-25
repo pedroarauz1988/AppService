@@ -1,0 +1,31 @@
+spring:
+  application:
+    name: app-service
+  profiles:
+    include:
+      - info
+  datasource:
+    url: jdbc:postgresql://localhost:5432/pruebaPichincha
+    username: postgres
+    password: postgres
+  jpa:
+    properties:
+      hibernate:
+        default_schema: public
+        order_by:
+          default_null_ordering: last
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+        ddl-auto: validate
+        jdbc:
+          lob:
+            non_contextual_creation: true
+          batch_size: 128
+          fetch_size: 128
+          batch_versioned_data: true
+    show-sql: false
+  liquibase:
+    enabled: true
+    change-log: classpath:dbchangelog.xml
+    contexts: ${spring.profiles.active}
+server:
+  port: 9035
